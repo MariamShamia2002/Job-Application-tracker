@@ -1,4 +1,5 @@
 import { ChevronRight, Triangle } from "lucide-react";
+import { useNavigate } from "react-router";
 import type { Application, ApplicationStatus } from "@/api/types";
 import {
   Table,
@@ -54,6 +55,8 @@ export function ApplicationsTable({
   applications: Application[];
   onStatusChange: (id: string, status: ApplicationStatus) => void;
 }) {
+  const navigate = useNavigate();
+
   return (
     <div className="overflow-hidden rounded-xl border border-border bg-white">
       <Table>
@@ -81,7 +84,8 @@ export function ApplicationsTable({
           {applications.map((application) => (
             <TableRow
               key={application.id}
-              className="group border-border hover:bg-transparent"
+              className="group cursor-pointer border-border hover:bg-zinc-50/80"
+              onClick={() => navigate(`/applications/${application.id}`)}
             >
               <TableCell className="px-4 py-3.5">
                 <div className="flex items-start gap-3">
@@ -108,7 +112,10 @@ export function ApplicationsTable({
                   </div>
                 </div>
               </TableCell>
-              <TableCell className="py-3.5">
+              <TableCell
+                className="py-3.5"
+                onClick={(event) => event.stopPropagation()}
+              >
                 <StatusMenu
                   status={application.status}
                   onChange={(status) => onStatusChange(application.id, status)}
