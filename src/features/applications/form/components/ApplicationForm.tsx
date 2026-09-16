@@ -1,5 +1,5 @@
 import type { FormEvent } from "react";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { getErrorMessage } from "@/api/errors";
 import { ErrorBanner } from "../../components/ErrorBanner";
@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { CONTENT_STEP_COUNT, LAST_STEP } from "../steps";
 import { useApplicationForm } from "../useApplicationForm";
 import { useCreateApplication } from "../useCreateApplication";
+import { useUpdateApplication } from "../useUpdateApplication";
 import { AttachmentsStep } from "./AttachmentsStep";
 import { CompanyRoleStep } from "./CompanyRoleStep";
 import { CompensationStep } from "./CompensationStep";
@@ -24,16 +25,24 @@ const STEP_VIEWS = {
   6: ReviewStep,
 } as const;
 
-export function ApplicationForm() {
+export function ApplicationForm({
+  mode = "create",
+}: {
+  mode?: "create" | "edit";
+}) {
   const { step, goNext, goBack } = useApplicationForm();
+  const { id } = useParams();
   const create = useCreateApplication();
+  const update = useUpdateApplication();
+  const save = mode === "edit" ? update : create;
   const StepView = STEP_VIEWS[step];
   const isReview = step === LAST_STEP;
+  const isEdit = mode === "edit";
 
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     if (isReview) {
-      create.submit();
+      save.submit();
       return;
     }
     goNext();
@@ -43,18 +52,24 @@ export function ApplicationForm() {
     <div className="mx-auto max-w-5xl">
       <div className="mb-6 flex items-start justify-between gap-4">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight">New application</h1>
+          <h1 className="text-xl font-semibold tracking-tight">
+            {isEdit ? "Edit application" : "New application"}
+          </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Five steps, then a review. Nothing is submitted until you confirm.
+            {isEdit
+              ? "Update the role, then confirm on the last step."
+              : "Five steps, then a review. Nothing is submitted until you confirm."}
           </p>
         </div>
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-2.5 py-1 text-xs text-muted-foreground">
-            <span className="size-1.5 rounded-full bg-emerald-500" />
-            draft saved
-          </span>
+          {!isEdit && (
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-2.5 py-1 text-xs text-muted-foreground">
+              <span className="size-1.5 rounded-full bg-emerald-500" />
+              draft saved
+            </span>
+          )}
           <Link
-            to="/applications"
+            to={isEdit && id ? `/applications/${id}` : "/applications"}
             className={cn(
               buttonVariants({ variant: "outline", size: "sm" }),
               "h-8 rounded-lg bg-white",
@@ -74,17 +89,17 @@ export function ApplicationForm() {
       >
         <StepView />
 
-        {create.isError && (
+        {save.isError && (
           <div className="mt-6">
             <ErrorBanner
               title="Couldn’t save application"
               description={getErrorMessage(
-                create.error,
+                save.error,
                 "Check the highlighted fields and try again.",
               )}
-              error={create.error}
-              onRetry={() => create.submit()}
-              onDismiss={() => create.reset()}
+              error={save.error}
+              onRetry={() => save.submit()}
+              onDismiss={() => save.reset()}
             />
           </div>
         )}
@@ -107,10 +122,14 @@ export function ApplicationForm() {
             {isReview ? (
               <Button
                 type="submit"
-                disabled={create.isPending}
+                disabled={save.isPending}
                 className="h-9 rounded-lg px-4"
               >
-                {create.isPending ? "Saving..." : "Save application"}
+                {save.isPending
+                  ? "Saving..."
+                  : isEdit
+                    ? "Save changes"
+                    : "Save application"}
               </Button>
             ) : (
               <Button

@@ -3,6 +3,7 @@ import AppLayout from "@/app/layout/AppLayout";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
 import ApplicationsPage from "@/pages/ApplicationsPage";
+import EditApplicationPage from "@/pages/EditApplicationPage";
 import LoginPage from "@/pages/LoginPage";
 import NewApplicationPage from "@/pages/NewApplicationPage";
 
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
           {
             path: "/applications/new",
             element: <NewApplicationPage />,
+          },
+          {
+            path: "/applications/:id/edit",
+            element: <EditApplicationPage />,
           },
           {
             path: "/applications/:id",
