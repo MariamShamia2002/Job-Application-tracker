@@ -9,12 +9,12 @@ import {
   ApplicationsTable,
   ApplicationsTableSkeleton,
 } from "@/features/applications/components/ApplicationsTable";
-import { ErrorBanner } from "@/features/applications/components/ErrorBanner";
+import { ErrorBanner } from "@/components/shared/ErrorBanner";
 import { ViewToggle } from "@/features/applications/components/ViewToggle";
 import { applicationKeys } from "@/features/applications/queryKeys";
-import { useApplicationFilters } from "@/features/applications/useApplicationFilters";
-import { useUpdateApplicationStatus } from "@/features/applications/useUpdateApplicationStatus";
-import { useAuth } from "@/features/auth/useAuth";
+import { useApplicationFilters } from "@/features/applications/hooks/useApplicationFilters";
+import { useUpdateApplicationStatus } from "@/features/applications/hooks/useUpdateApplicationStatus";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export default function ApplicationsPage() {
   return (

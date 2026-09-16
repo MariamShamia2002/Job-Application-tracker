@@ -3,11 +3,11 @@ import type { Application } from "@/api/types";
 import { getErrorMessage, isUnauthorized } from "@/api/errors";
 import { Button } from "@/components/ui/button";
 import { FileText } from "lucide-react";
-import { ErrorBanner } from "../../components/ErrorBanner";
-import { ATTACHMENT_ACCEPT } from "../../form/validation";
-import { useApplicationAttachments } from "../../useApplicationAttachments";
+import { ErrorBanner } from "@/components/shared/ErrorBanner";
+import { DetailsCard } from "@/features/applications/details/components/DetailsCard";
 import { fileExtension, triggerDownload } from "../display";
-import { DetailsCard } from "./DetailsCard";
+import { useApplicationAttachments } from "../hooks/useApplicationAttachments";
+import { ATTACHMENT_ACCEPT } from "../validation";
 
 export function ResumeCard({ application }: { application: Application }) {
   return (

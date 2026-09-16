@@ -15,7 +15,7 @@ import {
   STATUS_OPTIONS,
 } from "../../labels";
 import { FORM_STEPS } from "../steps";
-import { useApplicationForm } from "../useApplicationForm";
+import { useApplicationForm } from "../hooks/useApplicationForm";
 import { FormField, formControlClass } from "./FormField";
 
 const sourceItems = { none: "Select source", ...SOURCE_LABELS };

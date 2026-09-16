@@ -6,8 +6,8 @@ import type {
   ApplicationStatus,
   ApplicationsResponse,
 } from "@/api/types";
-import { useAuth } from "@/features/auth/useAuth";
-import { applicationKeys } from "./queryKeys";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { applicationKeys } from "../queryKeys";
 
 export function useUpdateApplicationStatus() {
   const { token, logout } = useAuth();

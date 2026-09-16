@@ -1,7 +1,7 @@
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FORM_STEPS, type FormStepId } from "../steps";
-import { useApplicationForm } from "../useApplicationForm";
+import { useApplicationForm } from "../hooks/useApplicationForm";
 
 export function FormStepper() {
   const { step, goToStep } = useApplicationForm();

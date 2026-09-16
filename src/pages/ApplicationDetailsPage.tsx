@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router";
 import type { ApplicationStatus } from "@/api/types";
 import { getErrorMessage, isNotFound, isUnauthorized } from "@/api/errors";
-import { CoverLetterCard, ResumeCard } from "@/features/applications/details/components/AttachmentCards";
+import { CoverLetterCard, ResumeCard } from "@/features/attachments/components/AttachmentCards";
 import { ApplicationHero } from "@/features/applications/details/components/ApplicationHero";
 import { DeleteApplicationDialog } from "@/features/applications/details/components/DeleteApplicationDialog";
 import { InterviewRoundsCard } from "@/features/interviews/components/InterviewRoundsCard";
@@ -10,14 +10,14 @@ import { JobDescriptionCard } from "@/features/applications/details/components/J
 import { KeyDetailsCard } from "@/features/applications/details/components/KeyDetailsCard";
 import { NotesCard } from "@/features/applications/details/components/NotesCard";
 import { RecruiterCard } from "@/features/applications/details/components/RecruiterCard";
-import { ErrorBanner } from "@/features/applications/components/ErrorBanner";
+import { ErrorBanner } from "@/components/shared/ErrorBanner";
 import { applicationCode } from "@/features/applications/details/display";
-import { useApplication } from "@/features/applications/useApplication";
+import { useApplication } from "@/features/applications/hooks/useApplication";
 import {
   useArchiveApplication,
   useDeleteApplication,
-} from "@/features/applications/useApplicationMutations";
-import { useUpdateApplicationStatus } from "@/features/applications/useUpdateApplicationStatus";
+} from "@/features/applications/hooks/useApplicationMutations";
+import { useUpdateApplicationStatus } from "@/features/applications/hooks/useUpdateApplicationStatus";
 
 export default function ApplicationDetailsPage() {
   const { id } = useParams();

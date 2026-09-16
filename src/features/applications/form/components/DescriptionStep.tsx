@@ -2,7 +2,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { SUGGESTED_TAGS } from "../../labels";
 import { FORM_STEPS } from "../steps";
-import { useApplicationForm } from "../useApplicationForm";
+import { useApplicationForm } from "../hooks/useApplicationForm";
 import { FormField } from "./FormField";
 
 export function DescriptionStep() {

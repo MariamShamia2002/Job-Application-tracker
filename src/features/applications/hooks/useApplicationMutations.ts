@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import { deleteApplication, updateApplication } from "@/api/applications";
 import { isUnauthorized } from "@/api/errors";
 import type { Application } from "@/api/types";
-import { useAuth } from "@/features/auth/useAuth";
-import { applicationKeys } from "./queryKeys";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { applicationKeys } from "../queryKeys";
 
 function useInvalidateApplication(onErrorExtra?: (error: unknown) => void) {
   const { token, logout } = useAuth();

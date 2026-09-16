@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { ApplicationListContext } from "./ApplicationContext";
+import { ApplicationListContext } from "../ApplicationContext";
 
-export type { SortDir, SortField } from "./ApplicationContext";
+export type { SortDir, SortField } from "../ApplicationContext";
 
 export function useApplicationFilters() {
   const context = useContext(ApplicationListContext);

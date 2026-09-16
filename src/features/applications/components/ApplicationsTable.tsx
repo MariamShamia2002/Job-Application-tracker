@@ -16,7 +16,7 @@ import {
   PRIORITY_LABELS,
   SOURCE_LABELS,
 } from "../labels";
-import { useApplicationFilters, type SortField } from "../useApplicationFilters";
+import { useApplicationFilters, type SortField } from "../hooks/useApplicationFilters";
 import { StatusMenu } from "./StatusMenu";
 
 function SortableHead({

@@ -3,7 +3,7 @@ import type { InterviewOutcome, InterviewRound } from "@/api/types";
 import { getErrorMessage, isUnauthorized } from "@/api/errors";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ErrorBanner } from "@/features/applications/components/ErrorBanner";
+import { ErrorBanner } from "@/components/shared/ErrorBanner";
 import { DetailsCard } from "@/features/applications/details/components/DetailsCard";
 import { formatDateTime } from "../display";
 import {
@@ -14,7 +14,7 @@ import {
 import {
   useCreateInterviewRound,
   useInterviewRounds,
-} from "../useInterviewRounds";
+} from "../hooks/useInterviewRounds";
 import { AddInterviewForm } from "./AddInterviewForm";
 
 export function InterviewRoundsCard({

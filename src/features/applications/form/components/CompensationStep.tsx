@@ -18,7 +18,7 @@ import {
   PRIORITY_OPTIONS,
 } from "../../labels";
 import { FORM_STEPS } from "../steps";
-import { useApplicationForm } from "../useApplicationForm";
+import { useApplicationForm } from "../hooks/useApplicationForm";
 import { FormField, formControlClass } from "./FormField";
 
 const currencyItems = { ...CURRENCY_LABELS };

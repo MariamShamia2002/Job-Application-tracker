@@ -1,10 +1,10 @@
 import { Link, useParams } from "react-router";
 import { getErrorMessage, isNotFound, isUnauthorized } from "@/api/errors";
-import { ErrorBanner } from "@/features/applications/components/ErrorBanner";
+import { ErrorBanner } from "@/components/shared/ErrorBanner";
 import { ApplicationForm } from "@/features/applications/form/components/ApplicationForm";
 import { ApplicationFormProvider } from "@/features/applications/form/ApplicationFormProvider";
 import { toFormValues } from "@/features/applications/form/toFormValues";
-import { useApplication } from "@/features/applications/useApplication";
+import { useApplication } from "@/features/applications/hooks/useApplication";
 
 export default function EditApplicationPage() {
   const { id } = useParams();

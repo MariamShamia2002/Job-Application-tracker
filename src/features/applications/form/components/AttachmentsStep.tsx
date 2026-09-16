@@ -2,11 +2,8 @@ import { useId, useState, type DragEvent } from "react";
 import { ArrowUp, FileText, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FORM_STEPS } from "../steps";
-import { useApplicationForm } from "../useApplicationForm";
-import {
-  ATTACHMENT_ACCEPT,
-  formatFileSize,
-} from "../validation";
+import { useApplicationForm } from "../hooks/useApplicationForm";
+import { ATTACHMENT_ACCEPT, formatFileSize } from "@/features/attachments/validation";
 import { FormField } from "./FormField";
 
 function FileDropZone({

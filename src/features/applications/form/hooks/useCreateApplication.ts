@@ -1,36 +1,31 @@
 import { useRef } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate, useParams } from "react-router";
-import { updateApplication } from "@/api/applications";
+import { useNavigate } from "react-router";
+import { createApplication } from "@/api/applications";
 import { uploadCoverLetter, uploadResume } from "@/api/attachments";
 import { getFieldErrors, isUnauthorized } from "@/api/errors";
-import { useAuth } from "@/features/auth/useAuth";
-import { applicationKeys } from "../queryKeys";
-import { getStepForField } from "./steps";
-import { toCreateInput } from "./toCreateInput";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { applicationKeys } from "../../queryKeys";
+import { getStepForField } from "../steps";
+import { toCreateInput } from "../toCreateInput";
 import { useApplicationForm } from "./useApplicationForm";
-import { validateForm } from "./validation";
+import { validateForm } from "../validation";
 
-export function useUpdateApplication() {
-  const { id } = useParams();
+export function useCreateApplication() {
   const { token, logout } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { values, setFieldErrors, setStep } = useApplicationForm();
-  const updatedIdRef = useRef<string | null>(id ?? null);
+  const createdIdRef = useRef<string | null>(null);
 
   const mutation = useMutation({
     mutationFn: async () => {
-      const applicationId = updatedIdRef.current ?? id;
-      if (!applicationId) {
-        throw {
-          status: 400,
-          error: { code: "VALIDATION_ERROR", message: "Missing application id" },
-        };
+      if (!createdIdRef.current) {
+        const created = await createApplication(token!, toCreateInput(values));
+        createdIdRef.current = created.id;
       }
 
-      await updateApplication(token!, applicationId, toCreateInput(values));
-      updatedIdRef.current = applicationId;
+      const applicationId = createdIdRef.current;
 
       if (values.resumeFile) {
         await uploadResume(token!, applicationId, values.resumeFile);
@@ -39,12 +34,10 @@ export function useUpdateApplication() {
       if (values.coverLetterFile) {
         await uploadCoverLetter(token!, applicationId, values.coverLetterFile);
       }
-
-      return applicationId;
     },
-    onSuccess: (applicationId) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: applicationKeys.all });
-      navigate(`/applications/${applicationId}`);
+      navigate("/applications");
     },
     onError: (error) => {
       if (isUnauthorized(error)) {

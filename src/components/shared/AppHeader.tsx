@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { buttonVariants } from "@/components/ui/button";
-import { useActiveCount } from "@/features/applications/useActiveCount";
+import { useActiveCount } from "@/features/applications/hooks/useActiveCount";
 import { cn } from "@/lib/utils";
 
 export function AppHeader() {

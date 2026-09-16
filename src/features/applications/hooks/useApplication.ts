@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { getApplication } from "@/api/applications";
 import { isUnauthorized } from "@/api/errors";
-import { useAuth } from "@/features/auth/useAuth";
-import { applicationKeys } from "./queryKeys";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { applicationKeys } from "../queryKeys";
 
 export function useApplication(id: string | undefined) {
   const { token, logout } = useAuth();

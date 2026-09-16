@@ -18,7 +18,7 @@ import {
   STATUS_LABELS,
   STATUS_OPTIONS,
 } from "../labels";
-import { useApplicationFilters } from "../useApplicationFilters";
+import { useApplicationFilters } from "../hooks/useApplicationFilters";
 
 const filterTriggerClass =
   "h-9 min-w-[140px] rounded-xl border-border bg-white px-3 shadow-none text-foreground";

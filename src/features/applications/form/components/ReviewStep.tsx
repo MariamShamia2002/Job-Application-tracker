@@ -10,7 +10,7 @@ import {
   WORK_MODE_LABELS,
 } from "../../labels";
 import { FORM_STEPS, type FormStepId } from "../steps";
-import { useApplicationForm } from "../useApplicationForm";
+import { useApplicationForm } from "../hooks/useApplicationForm";
 import { stepNeedsAttention } from "../validation";
 
 function display(value: string | undefined, empty = "Not set") {

@@ -9,9 +9,9 @@ import {
 } from "@/api/attachments";
 import { isUnauthorized } from "@/api/errors";
 import type { Application } from "@/api/types";
-import { useAuth } from "@/features/auth/useAuth";
-import { validateAttachment } from "./form/validation";
-import { applicationKeys } from "./queryKeys";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { applicationKeys } from "@/features/applications/queryKeys";
+import { validateAttachment } from "../validation";
 
 export function useApplicationAttachments(applicationId: string) {
   const { token, logout } = useAuth();

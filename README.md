@@ -8,6 +8,14 @@ Sign in with your job-tracker API account, then filter the list, add a role, and
 
 Demo login: `intern@example.com` / `Password123!`
 
+## How to use
+
+1. Sign in on `/login`.
+2. **Applications** — search and filter the list, or click a row to open details.
+3. **New Application** — a short wizard for company, role, dates, notes, and attachments.
+4. **Details** — change status, archive or delete, upload a resume/cover letter, and add interview rounds.
+5. **Edit** — the same wizard, pre-filled from the existing application.
+
 ## Setup
 
 ```bash
@@ -22,23 +30,29 @@ VITE_API_URL=https://your-api-host
 
 Use the backend’s public URL (no trailing slash).
 
-## Run
-
 ```bash
-npm run dev
-```
-
-Opens at [http://localhost:5173](http://localhost:5173) (or the next free port Vite prints).
-
-## How to use
-
-1. Sign in on `/login`.
-2. **Applications** — search and filter the list, or click a row to open details.
-3. **New Application** — a short wizard for company, role, dates, notes, and attachments.
-4. **Details** — change status, archive or delete, upload a resume/cover letter, and add interview rounds.
-5. **Edit** — the same wizard, pre-filled from the existing application.
-
-```bash
+npm run dev      # http://localhost:5173 (or the next free Vite port)
 npm run build    # production build
 npm run preview  # serve the build locally
+```
+
+## Folder layout
+
+```
+src/
+  api/                 HTTP client, types, and endpoints
+  app/                 router and layout
+  components/
+    ui/                shadcn primitives
+    shared/            header, auth gate, error banner
+  features/
+    auth/              login session and useAuth hook
+    applications/
+      components/      list table and filters
+      details/         detail cards
+      form/            create/edit wizard
+      hooks/           queries and mutations
+    interviews/        rounds timeline and add-round form
+    attachments/       resume and cover letter upload
+  pages/               route screens
 ```

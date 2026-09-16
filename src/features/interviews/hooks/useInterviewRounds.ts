@@ -6,8 +6,8 @@ import {
 import { isUnauthorized } from "@/api/errors";
 import type { CreateInterviewRoundInput, InterviewRound } from "@/api/types";
 import { applicationKeys } from "@/features/applications/queryKeys";
-import { useAuth } from "@/features/auth/useAuth";
-import { interviewKeys } from "./queryKeys";
+import { useAuth } from "@/features/auth/hooks/useAuth";
+import { interviewKeys } from "../queryKeys";
 
 export function useInterviewRounds(applicationId: string) {
   const { token, logout } = useAuth();
