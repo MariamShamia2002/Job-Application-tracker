@@ -1,28 +1,44 @@
 import { createBrowserRouter, Navigate } from "react-router";
-import LoginPage from "@/pages/LoginPage";
-import ApplicationsPage from "@/pages/ApplicationsPage";
-import NewApplicationPage from "@/pages/NewApplicationPage";
+import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
+import ApplicationsPage from "@/pages/ApplicationsPage";
+import LoginPage from "@/pages/LoginPage";
+import NewApplicationPage from "@/pages/NewApplicationPage";
 
 export const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Navigate to="/login" replace />,
-  },
+  // ── Public ──────────────────────────────────────────────────────────────────
   {
     path: "/login",
     element: <LoginPage />,
   },
+
+  // ── Protected ────────────────────────────────────────────────────────────────
+  // ProtectedRoute renders <Outlet /> when authenticated, or redirects to /login.
   {
-    path: "/applications",
-    element: <ApplicationsPage />,
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: "/applications",
+        element: <ApplicationsPage />,
+      },
+      {
+        path: "/applications/new",
+        element: <NewApplicationPage />,
+      },
+      {
+        path: "/applications/:id",
+        element: <ApplicationDetailsPage />,
+      },
+    ],
+  },
+
+  // ── Root & catch-all redirects ───────────────────────────────────────────────
+  {
+    path: "/",
+    element: <Navigate to="/applications" replace />,
   },
   {
-    path: "/applications/new",
-    element: <NewApplicationPage />,
-  },
-  {
-    path: "/applications/:id",
-    element: <ApplicationDetailsPage />,
+    path: "*",
+    element: <Navigate to="/applications" replace />,
   },
 ]);
