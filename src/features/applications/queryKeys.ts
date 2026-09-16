@@ -6,4 +6,8 @@ export const applicationKeys = {
   list: (filters: ApplicationsFilters) =>
     [...applicationKeys.lists(), filters] as const,
   activeCount: () => [...applicationKeys.all, "active-count"] as const,
+  details: () => [...applicationKeys.all, "detail"] as const,
+  detail: (id: string) => [...applicationKeys.details(), id] as const,
+  interviews: (id: string) =>
+    [...applicationKeys.detail(id), "interviews"] as const,
 };
