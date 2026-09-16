@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router";
+import AppLayout from "@/app/layout/AppLayout";
 import ProtectedRoute from "@/components/shared/ProtectedRoute";
 import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
 import ApplicationsPage from "@/pages/ApplicationsPage";
@@ -18,16 +19,21 @@ export const router = createBrowserRouter([
     element: <ProtectedRoute />,
     children: [
       {
-        path: "/applications",
-        element: <ApplicationsPage />,
-      },
-      {
-        path: "/applications/new",
-        element: <NewApplicationPage />,
-      },
-      {
-        path: "/applications/:id",
-        element: <ApplicationDetailsPage />,
+        element: <AppLayout />,
+        children: [
+          {
+            path: "/applications",
+            element: <ApplicationsPage />,
+          },
+          {
+            path: "/applications/new",
+            element: <NewApplicationPage />,
+          },
+          {
+            path: "/applications/:id",
+            element: <ApplicationDetailsPage />,
+          },
+        ],
       },
     ],
   },
