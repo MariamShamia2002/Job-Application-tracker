@@ -238,20 +238,6 @@ export interface CreateInterviewRoundInput {
   notes?: string | null;
 }
 
-export type UpdateInterviewRoundInput = Partial<{
-  roundType: InterviewRoundType;
-  scheduledDate: string;
-  interviewerName: string | null;
-  interviewerRole: string | null;
-  outcome: InterviewOutcome;
-  notes: string | null;
-}>;
-
-export interface InterviewRoundsResponse {
-  data: InterviewRound[];
-  meta: { count: number };
-}
-
 //Errors 
 
 export type ApiErrorCode =

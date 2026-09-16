@@ -5,7 +5,7 @@ import { getErrorMessage, isNotFound, isUnauthorized } from "@/api/errors";
 import { CoverLetterCard, ResumeCard } from "@/features/applications/details/components/AttachmentCards";
 import { ApplicationHero } from "@/features/applications/details/components/ApplicationHero";
 import { DeleteApplicationDialog } from "@/features/applications/details/components/DeleteApplicationDialog";
-import { InterviewRoundsCard } from "@/features/applications/details/components/InterviewRoundsCard";
+import { InterviewRoundsCard } from "@/features/interviews/components/InterviewRoundsCard";
 import { JobDescriptionCard } from "@/features/applications/details/components/JobDescriptionCard";
 import { KeyDetailsCard } from "@/features/applications/details/components/KeyDetailsCard";
 import { NotesCard } from "@/features/applications/details/components/NotesCard";

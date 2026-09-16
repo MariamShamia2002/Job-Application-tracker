@@ -51,7 +51,7 @@ export function AppHeader() {
           New Application
         </Link>
 
-        <Avatar size="sm" className="size-7 bg-zinc-200">
+        <Avatar size="md" className="size-7 bg-zinc-200">
           <AvatarFallback className="bg-zinc-200 text-[11px] font-medium text-zinc-600">
             MR
           </AvatarFallback>

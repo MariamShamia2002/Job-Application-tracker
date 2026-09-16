@@ -1,10 +1,5 @@
 import { apiClient } from "./client";
-import type {
-  CreateInterviewRoundInput,
-  InterviewRound,
-  UpdateInterviewRoundInput,
-} from "./types";
-
+import type { CreateInterviewRoundInput, InterviewRound } from "./types";
 
 export function getInterviewRounds(
   token: string,
@@ -34,30 +29,3 @@ export function createInterviewRound(
   );
 }
 
-export function updateInterviewRound(
-  token: string,
-  roundId: string,
-  data: UpdateInterviewRoundInput,
-) {
-  return apiClient<InterviewRound>(
-    `/api/interview-rounds/${roundId}`,
-    {
-      method: "PATCH",
-      token,
-      body: JSON.stringify(data),
-    },
-  );
-}
-
-export function deleteInterviewRound(
-  token: string,
-  roundId: string,
-) {
-  return apiClient<void>(
-    `/api/interview-rounds/${roundId}`,
-    {
-      method: "DELETE",
-      token,
-    },
-  );
-}

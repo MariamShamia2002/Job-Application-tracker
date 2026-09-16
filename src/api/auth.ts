@@ -1,5 +1,5 @@
 import { apiClient } from "./client";
-import type { LoginResponse, User } from "./types";
+import type { LoginResponse } from "./types";
 
 export interface LoginCredentials {
   email: string;
@@ -13,9 +13,3 @@ export function login(credentials: LoginCredentials) {
   });
 }
 
-export function getMe(token: string) {
-  return apiClient<User>("/api/auth/me", {
-    method: "GET",
-    token,
-  });
-}

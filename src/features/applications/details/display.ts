@@ -5,19 +5,6 @@ export function applicationCode(id: string) {
   return `APP-${id.replace(/-/g, "").slice(-4).toUpperCase()}`;
 }
 
-export function formatDateTime(iso: string | null) {
-  if (!iso) return "—";
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) {
-    const day = iso.slice(0, 10);
-    const time = iso.slice(11, 16);
-    return time ? `${day} ${time}` : day;
-  }
-  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60_000)
-    .toISOString();
-  return `${local.slice(0, 10)} ${local.slice(11, 16)}`;
-}
-
 export function formatSalary(
   min: number | null,
   max: number | null,
@@ -52,16 +39,4 @@ export function fileExtension(fileName: string | null) {
   if (!fileName) return "FILE";
   const ext = fileName.split(".").pop()?.trim();
   return ext ? ext.toUpperCase() : "FILE";
-}
-
-export function toDateTimeLocal(iso: string) {
-  const date = new Date(iso);
-  if (Number.isNaN(date.getTime())) return iso.slice(0, 16);
-  const offset = date.getTimezoneOffset() * 60_000;
-  return new Date(date.getTime() - offset).toISOString().slice(0, 16);
-}
-
-export function fromDateTimeLocal(value: string) {
-  const date = new Date(value);
-  return Number.isNaN(date.getTime()) ? value : date.toISOString();
 }

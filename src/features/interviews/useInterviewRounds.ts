@@ -5,14 +5,15 @@ import {
 } from "@/api/interviews";
 import { isUnauthorized } from "@/api/errors";
 import type { CreateInterviewRoundInput, InterviewRound } from "@/api/types";
+import { applicationKeys } from "@/features/applications/queryKeys";
 import { useAuth } from "@/features/auth/useAuth";
-import { applicationKeys } from "./queryKeys";
+import { interviewKeys } from "./queryKeys";
 
 export function useInterviewRounds(applicationId: string) {
   const { token, logout } = useAuth();
 
   return useQuery({
-    queryKey: applicationKeys.interviews(applicationId),
+    queryKey: interviewKeys.list(applicationId),
     queryFn: async () => {
       try {
         const result = await getInterviewRounds(token!, applicationId);
@@ -35,7 +36,7 @@ export function useCreateInterviewRound(applicationId: string) {
       createInterviewRound(token!, applicationId, data),
     onSuccess: (created) => {
       queryClient.setQueryData<InterviewRound[]>(
-        applicationKeys.interviews(applicationId),
+        interviewKeys.list(applicationId),
         (current) => (current ? [...current, created] : [created]),
       );
       queryClient.invalidateQueries({

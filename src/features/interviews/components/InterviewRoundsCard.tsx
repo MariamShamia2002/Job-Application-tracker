@@ -3,19 +3,19 @@ import type { InterviewOutcome, InterviewRound } from "@/api/types";
 import { getErrorMessage, isUnauthorized } from "@/api/errors";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ErrorBanner } from "../../components/ErrorBanner";
+import { ErrorBanner } from "@/features/applications/components/ErrorBanner";
+import { DetailsCard } from "@/features/applications/details/components/DetailsCard";
+import { formatDateTime } from "../display";
 import {
   INTERVIEW_OUTCOME_CLASS,
   INTERVIEW_OUTCOME_LABELS,
   INTERVIEW_ROUND_LABELS,
-} from "../../labels";
+} from "../labels";
 import {
   useCreateInterviewRound,
   useInterviewRounds,
-} from "../../useInterviewRounds";
-import { formatDateTime } from "../display";
+} from "../useInterviewRounds";
 import { AddInterviewForm } from "./AddInterviewForm";
-import { DetailsCard } from "./DetailsCard";
 
 export function InterviewRoundsCard({
   applicationId,

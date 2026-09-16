@@ -12,12 +12,14 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { formControlClass } from "../../form/components/FormField";
+import { fromDateTimeLocal } from "../display";
 import {
   INTERVIEW_ROUND_LABELS,
   INTERVIEW_ROUND_OPTIONS,
-} from "../../labels";
-import { fromDateTimeLocal } from "../display";
+} from "../labels";
+
+const formControlClass =
+  "h-9 w-full rounded-lg border-border bg-white px-3 shadow-none";
 
 const roundItems = { ...INTERVIEW_ROUND_LABELS };
 
