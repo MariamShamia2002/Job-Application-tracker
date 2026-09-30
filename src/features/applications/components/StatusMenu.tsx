@@ -1,4 +1,4 @@
-import type { ApplicationStatus } from "@/api/types";
+import type { ApplicationStatus } from "@/features/applications/types/application";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ChevronDown } from "lucide-react";
-import { STATUS_LABELS, STATUS_OPTIONS } from "../labels";
+import { STATUS_LABELS, STATUS_OPTIONS } from "../utils/labels";
 import { StatusBadge } from "./StatusBadge";
 
 export function StatusMenu({

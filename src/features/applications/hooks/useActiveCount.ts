@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getApplications } from "@/api/applications";
+import { getApplications } from "@/features/applications/api/applications";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { applicationKeys } from "../queryKeys";
+import { applicationKeys } from "../utils/queryKeys";
 
 export function useActiveCount() {
   const { token } = useAuth();

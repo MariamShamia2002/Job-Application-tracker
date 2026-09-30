@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
-import { deleteApplication, updateApplication } from "@/api/applications";
+import { deleteApplication, updateApplication } from "@/features/applications/api/applications";
 import { isUnauthorized } from "@/api/errors";
-import type { Application } from "@/api/types";
+import type { Application } from "@/features/applications/types/application";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { applicationKeys } from "../queryKeys";
+import { applicationKeys } from "../utils/queryKeys";
 
 function useInvalidateApplication(onErrorExtra?: (error: unknown) => void) {
   const { token, logout } = useAuth();

@@ -6,12 +6,12 @@ import {
   downloadResume,
   uploadCoverLetter,
   uploadResume,
-} from "@/api/attachments";
+} from "@/features/attachments/api/attachments";
 import { isUnauthorized } from "@/api/errors";
-import type { Application } from "@/api/types";
+import type { Application } from "@/features/applications/types/application";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { applicationKeys } from "@/features/applications/queryKeys";
-import { validateAttachment } from "../validation";
+import { applicationKeys } from "@/features/applications/utils/queryKeys";
+import { validateAttachment } from "../utils/validation";
 
 export function useApplicationAttachments(applicationId: string) {
   const { token, logout } = useAuth();

@@ -1,11 +1,11 @@
 import { createBrowserRouter, Navigate } from "react-router";
 import AppLayout from "@/app/layout/AppLayout";
-import ProtectedRoute from "@/components/shared/ProtectedRoute";
-import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
-import ApplicationsPage from "@/pages/ApplicationsPage";
-import EditApplicationPage from "@/pages/EditApplicationPage";
-import LoginPage from "@/pages/LoginPage";
-import NewApplicationPage from "@/pages/NewApplicationPage";
+import ProtectedRoute from "@/features/auth/components/ProtectedRoute";
+import ApplicationDetailsPage from "@/features/applications/pages/ApplicationDetailsPage";
+import ApplicationsPage from "@/features/applications/pages/ApplicationsPage";
+import EditApplicationPage from "@/features/applications/pages/EditApplicationPage";
+import LoginPage from "@/features/auth/pages/LoginPage";
+import NewApplicationPage from "@/features/applications/pages/NewApplicationPage";
 
 export const router = createBrowserRouter([
   // ── Public ──────────────────────────────────────────────────────────────────

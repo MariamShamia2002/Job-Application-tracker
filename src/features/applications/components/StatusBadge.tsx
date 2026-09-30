@@ -1,6 +1,6 @@
-import type { ApplicationStatus } from "@/api/types";
+import type { ApplicationStatus } from "@/features/applications/types/application";
 import { cn } from "@/lib/utils";
-import { STATUS_BADGE_CLASS, STATUS_LABELS } from "../labels";
+import { STATUS_BADGE_CLASS, STATUS_LABELS } from "../utils/labels";
 
 export function StatusBadge({ status }: { status: ApplicationStatus }) {
   return (

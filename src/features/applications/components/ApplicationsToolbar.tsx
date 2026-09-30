@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import type { ApplicationSource, ApplicationStatus, Priority } from "@/api/types";
+import type { ApplicationSource, ApplicationStatus, Priority } from "@/features/applications/types/application";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -17,7 +17,7 @@ import {
   SOURCE_OPTIONS,
   STATUS_LABELS,
   STATUS_OPTIONS,
-} from "../labels";
+} from "../utils/labels";
 import { useApplicationFilters } from "../hooks/useApplicationFilters";
 
 const filterTriggerClass =

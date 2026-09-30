@@ -1,6 +1,6 @@
 import { ChevronRight, Triangle } from "lucide-react";
 import { useNavigate } from "react-router";
-import type { Application, ApplicationStatus } from "@/api/types";
+import type { Application, ApplicationStatus } from "@/features/applications/types/application";
 import {
   Table,
   TableBody,
@@ -15,8 +15,9 @@ import {
   PRIORITY_DOT_CLASS,
   PRIORITY_LABELS,
   SOURCE_LABELS,
-} from "../labels";
-import { useApplicationFilters, type SortField } from "../hooks/useApplicationFilters";
+} from "../utils/labels";
+import { useApplicationFilters } from "../hooks/useApplicationFilters";
+import type { SortField } from "@/features/applications/types/applicationList";
 import { StatusMenu } from "./StatusMenu";
 
 function SortableHead({

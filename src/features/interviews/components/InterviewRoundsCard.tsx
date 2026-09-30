@@ -1,16 +1,16 @@
 import { useMemo, useState } from "react";
-import type { InterviewOutcome, InterviewRound } from "@/api/types";
+import type { InterviewOutcome, InterviewRound } from "@/features/interviews/types/interview";
 import { getErrorMessage, isUnauthorized } from "@/api/errors";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ErrorBanner } from "@/components/shared/ErrorBanner";
-import { DetailsCard } from "@/features/applications/details/components/DetailsCard";
-import { formatDateTime } from "../display";
+import { DetailsCard } from "@/components/shared/DetailsCard";
+import { formatDateTime } from "../utils/display";
 import {
   INTERVIEW_OUTCOME_CLASS,
   INTERVIEW_OUTCOME_LABELS,
   INTERVIEW_ROUND_LABELS,
-} from "../labels";
+} from "../utils/labels";
 import {
   useCreateInterviewRound,
   useInterviewRounds,

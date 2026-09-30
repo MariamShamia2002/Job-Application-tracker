@@ -1,13 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateApplicationStatus } from "@/api/applications";
+import { updateApplicationStatus } from "@/features/applications/api/applications";
 import { isUnauthorized } from "@/api/errors";
-import type {
-  Application,
-  ApplicationStatus,
-  ApplicationsResponse,
-} from "@/api/types";
+import type { Application, ApplicationStatus, ApplicationsResponse } from "@/features/applications/types/application";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { applicationKeys } from "../queryKeys";
+import { applicationKeys } from "../utils/queryKeys";
 
 export function useUpdateApplicationStatus() {
   const { token, logout } = useAuth();

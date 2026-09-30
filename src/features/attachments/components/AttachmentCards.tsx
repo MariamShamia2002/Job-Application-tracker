@@ -1,13 +1,13 @@
 import { useRef, useState } from "react";
-import type { Application } from "@/api/types";
+import type { Application } from "@/features/applications/types/application";
 import { getErrorMessage, isUnauthorized } from "@/api/errors";
 import { Button } from "@/components/ui/button";
 import { FileText } from "lucide-react";
 import { ErrorBanner } from "@/components/shared/ErrorBanner";
-import { DetailsCard } from "@/features/applications/details/components/DetailsCard";
-import { fileExtension, triggerDownload } from "../display";
+import { DetailsCard } from "@/components/shared/DetailsCard";
+import { fileExtension, triggerDownload } from "../utils/display";
 import { useApplicationAttachments } from "../hooks/useApplicationAttachments";
-import { ATTACHMENT_ACCEPT } from "../validation";
+import { ATTACHMENT_ACCEPT } from "../utils/validation";
 
 export function ResumeCard({ application }: { application: Application }) {
   return (

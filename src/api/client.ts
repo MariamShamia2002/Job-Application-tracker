@@ -1,4 +1,4 @@
-import type { ApiError, ApiErrorCode,ApiErrorBody } from "./types";
+import type { ApiError, ApiErrorCode, ApiErrorBody } from "./types";
 
 export const API_URL = import.meta.env.VITE_API_URL as string;
 

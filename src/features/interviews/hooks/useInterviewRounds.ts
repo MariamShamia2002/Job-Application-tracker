@@ -2,12 +2,12 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createInterviewRound,
   getInterviewRounds,
-} from "@/api/interviews";
+} from "@/features/interviews/api/interviews";
 import { isUnauthorized } from "@/api/errors";
-import type { CreateInterviewRoundInput, InterviewRound } from "@/api/types";
-import { applicationKeys } from "@/features/applications/queryKeys";
+import type { CreateInterviewRoundInput, InterviewRound } from "@/features/interviews/types/interview";
+import { applicationKeys } from "@/features/applications/utils/queryKeys";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { interviewKeys } from "../queryKeys";
+import { interviewKeys } from "../utils/queryKeys";
 
 export function useInterviewRounds(applicationId: string) {
   const { token, logout } = useAuth();

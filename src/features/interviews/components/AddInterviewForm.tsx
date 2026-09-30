@@ -1,5 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from "react";
-import type { CreateInterviewRoundInput, InterviewRoundType } from "@/api/types";
+import type { CreateInterviewRoundInput, InterviewRoundType } from "@/features/interviews/types/interview";
 import { getErrorMessage } from "@/api/errors";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,11 +12,11 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { fromDateTimeLocal } from "../display";
+import { fromDateTimeLocal } from "../utils/display";
 import {
   INTERVIEW_ROUND_LABELS,
   INTERVIEW_ROUND_OPTIONS,
-} from "../labels";
+} from "../utils/labels";
 
 const formControlClass =
   "h-9 w-full rounded-lg border-border bg-white px-3 shadow-none";
