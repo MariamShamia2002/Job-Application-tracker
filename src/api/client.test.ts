@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { server } from "@/test/server";
-import { apiClient } from "./client";
+import { apiClient, apiFetch, apiRequest } from "./client";
 
 const API = "http://api.test";
 
@@ -114,5 +114,85 @@ describe("apiClient", () => {
 
     expect(contentType).not.toBe("application/json");
     expect(contentType).toMatch(/^multipart\/form-data; boundary=/);
+  });
+});
+
+describe("apiRequest", () => {
+  it("returns the whole JSON body, including meta", async () => {
+    server.use(
+      http.get(`${API}/api/things`, () =>
+        HttpResponse.json({ data: [{ id: "1" }], meta: { count: 1 } }),
+      ),
+    );
+
+    await expect(apiRequest("/api/things")).resolves.toEqual({
+      data: [{ id: "1" }],
+      meta: { count: 1 },
+    });
+  });
+
+  it("throws the same typed ApiError as apiClient", async () => {
+    server.use(
+      http.get(`${API}/api/things`, () => new HttpResponse(null, { status: 500 })),
+    );
+
+    await expect(apiRequest("/api/things")).rejects.toMatchObject({
+      status: 500,
+      error: { code: "INTERNAL_ERROR" },
+    });
+  });
+});
+
+describe("apiFetch", () => {
+  it("returns the raw response so callers can read a file", async () => {
+    server.use(
+      http.get(`${API}/api/file`, () =>
+        new HttpResponse("file contents", { headers: { "Content-Type": "application/pdf" } }),
+      ),
+    );
+
+    const response = await apiFetch("/api/file", { token: "abc123" });
+
+    await expect(response.text()).resolves.toBe("file contents");
+  });
+});
+
+describe("401 handling", () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  function stubLocation() {
+    const location = { replace: vi.fn() };
+    vi.stubGlobal("location", location);
+    return location;
+  }
+
+  it("clears the saved login and goes to /login when a logged-in request gets a 401", async () => {
+    const location = stubLocation();
+    localStorage.setItem("auth_token", "expired-token");
+    localStorage.setItem("auth_user", "{}");
+    server.use(
+      http.get(`${API}/api/things`, () => new HttpResponse(null, { status: 401 })),
+    );
+
+    await expect(apiClient("/api/things", { token: "expired-token" })).rejects.toMatchObject({
+      status: 401,
+    });
+    expect(localStorage.getItem("auth_token")).toBeNull();
+    expect(localStorage.getItem("auth_user")).toBeNull();
+    expect(location.replace).toHaveBeenCalledWith("/login");
+  });
+
+  it("does not redirect on a 401 without a token, such as a wrong password", async () => {
+    const location = stubLocation();
+    server.use(
+      http.post(`${API}/api/auth/login`, () => new HttpResponse(null, { status: 401 })),
+    );
+
+    await expect(apiClient("/api/auth/login", { method: "POST" })).rejects.toMatchObject({
+      status: 401,
+    });
+    expect(location.replace).not.toHaveBeenCalled();
   });
 });

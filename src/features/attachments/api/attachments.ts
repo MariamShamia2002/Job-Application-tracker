@@ -1,4 +1,4 @@
-import { apiClient } from "@/api/client";
+import { apiClient, apiFetch } from "@/api/client";
 import type { Application } from "@/features/applications/types/application";
 
 export function uploadResume(
@@ -88,24 +88,6 @@ async function downloadAttachment(
   token: string,
   endpoint: string,
 ) {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}${endpoint}`,
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    },
-  );
-
-  if (!response.ok) {
-    const errorBody = await response.json().catch(() => null);
-
-    throw {
-      status: response.status,
-      ...(errorBody ?? {}),
-    };
-  }
-
+  const response = await apiFetch(endpoint, { method: "GET", token });
   return response.blob();
 }

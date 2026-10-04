@@ -1,5 +1,4 @@
-import { apiClient, API_URL, isErrorEnvelope, statusToCode } from "@/api/client";
-import type { ApiError } from "@/api/types";
+import { apiClient, apiRequest } from "@/api/client";
 import type { Application, ApplicationsFilters, ApplicationsResponse, CreateApplicationInput, UpdateApplicationInput, UpdateStatusInput } from "../types/application";
 
 function buildQuery(filters?: ApplicationsFilters) {
@@ -18,41 +17,15 @@ function buildQuery(filters?: ApplicationsFilters) {
   return query ? `?${query}` : "";
 }
 
-/**
- * Returns the full { data, meta } envelope so callers can read meta.count.
- *
- * We cannot use apiClient<T> here because it strips .data from the body.
- * Instead we fetch directly but use the same error shape so callers can
- * still use isApiError / getFieldErrors on a thrown value.
- */
-export async function getApplications(
+// Uses apiRequest (not apiClient) to keep the full { data, meta } body so callers can read meta.count.
+export function getApplications(
   token: string,
   filters?: ApplicationsFilters,
-): Promise<ApplicationsResponse> {
-  const res = await fetch(
-    `${API_URL}/api/applications${buildQuery(filters)}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    },
+) {
+  return apiRequest<ApplicationsResponse>(
+    `/api/applications${buildQuery(filters)}`,
+    { token },
   );
-
-  if (!res.ok) {
-    let body: unknown = null;
-    try { body = await res.json(); } catch { /* non-JSON body */ }
-
-    const err: ApiError = {
-      status: res.status,
-      error: isErrorEnvelope(body)
-        ? body.error
-        : { code: statusToCode(res.status), message: res.statusText || "Request failed" },
-    };
-    throw err;
-  }
-
-  return res.json() as Promise<ApplicationsResponse>;
 }
 
 

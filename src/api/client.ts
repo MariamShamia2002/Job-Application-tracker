@@ -10,10 +10,11 @@ interface RequestOptions extends RequestInit {
   token?: string;
 }
 
-export async function apiClient<T>(
+/** Sends the request and throws a typed ApiError on failure. Returns the raw Response. */
+export async function apiFetch(
   endpoint: string,
   options: RequestOptions = {},
-): Promise<T> {
+): Promise<Response> {
   const { token, headers, ...fetchOptions } = options;
 
   const response = await fetch(`${API_URL}${endpoint}`, {
@@ -58,14 +59,31 @@ export async function apiClient<T>(
     throw apiError;
   }
 
+  return response;
+}
+
+/** Returns the whole JSON body, e.g. { data, meta } for list endpoints. */
+export async function apiRequest<T>(
+  endpoint: string,
+  options: RequestOptions = {},
+): Promise<T> {
+  const response = await apiFetch(endpoint, options);
+
   // ── 204 No Content 
   if (response.status === 204) {
     return undefined as T;
   }
 
-  // ── Success 
-  const body = await response.json();
-  return body.data as T;
+  return (await response.json()) as T;
+}
+
+/** Returns only body.data, which is what most endpoints need. */
+export async function apiClient<T>(
+  endpoint: string,
+  options: RequestOptions = {},
+): Promise<T> {
+  const body = await apiRequest<{ data: T } | undefined>(endpoint, options);
+  return body?.data as T;
 }
 
 // ─── Helpers (exported for use by other fetch wrappers) ───────────────────────
