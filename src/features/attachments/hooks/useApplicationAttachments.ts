@@ -7,19 +7,14 @@ import {
   uploadCoverLetter,
   uploadResume,
 } from "@/features/attachments/api/attachments";
-import { isUnauthorized } from "@/api/errors";
 import type { Application } from "@/features/applications/types/application";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { applicationKeys } from "@/features/applications/utils/queryKeys";
 import { validateAttachment } from "../utils/validation";
 
 export function useApplicationAttachments(applicationId: string) {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const queryClient = useQueryClient();
-
-  function onError(error: unknown) {
-    if (isUnauthorized(error)) logout();
-  }
 
   function onUploaded(updated: Application) {
     queryClient.setQueryData(applicationKeys.detail(updated.id), updated);
@@ -38,7 +33,6 @@ export function useApplicationAttachments(applicationId: string) {
       return uploadResume(token!, applicationId, file);
     },
     onSuccess: onUploaded,
-    onError,
   });
 
   const uploadCoverLetterMutation = useMutation({
@@ -53,7 +47,6 @@ export function useApplicationAttachments(applicationId: string) {
       return uploadCoverLetter(token!, applicationId, file);
     },
     onSuccess: onUploaded,
-    onError,
   });
 
   const deleteResumeMutation = useMutation({
@@ -70,7 +63,6 @@ export function useApplicationAttachments(applicationId: string) {
         queryKey: applicationKeys.detail(applicationId),
       });
     },
-    onError,
   });
 
   const deleteCoverLetterMutation = useMutation({
@@ -87,7 +79,6 @@ export function useApplicationAttachments(applicationId: string) {
         queryKey: applicationKeys.detail(applicationId),
       });
     },
-    onError,
   });
 
   return {

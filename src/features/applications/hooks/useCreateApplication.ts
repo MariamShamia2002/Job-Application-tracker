@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import { createApplication } from "@/features/applications/api/applications";
 import { uploadCoverLetter, uploadResume } from "@/features/attachments/api/attachments";
-import { getFieldErrors, isUnauthorized } from "@/api/errors";
+import { getFieldErrors } from "@/api/errors";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { applicationKeys } from "../utils/queryKeys";
 import { getStepForField } from "../utils/formSteps";
@@ -12,7 +12,7 @@ import { useApplicationForm } from "./useApplicationForm";
 import { validateForm } from "../utils/formValidation";
 
 export function useCreateApplication() {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { values, setFieldErrors, setStep } = useApplicationForm();
@@ -40,11 +40,6 @@ export function useCreateApplication() {
       navigate("/applications");
     },
     onError: (error) => {
-      if (isUnauthorized(error)) {
-        logout();
-        return;
-      }
-
       const errors = getFieldErrors(error);
       if (Object.keys(errors).length === 0) return;
 

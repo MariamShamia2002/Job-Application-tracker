@@ -1,12 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateApplicationStatus } from "@/features/applications/api/applications";
-import { isUnauthorized } from "@/api/errors";
 import type { Application, ApplicationStatus, ApplicationsResponse } from "@/features/applications/types/application";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { applicationKeys } from "../utils/queryKeys";
 
 export function useUpdateApplicationStatus() {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -54,7 +53,7 @@ export function useUpdateApplicationStatus() {
       return { previous, previousDetail, id };
     },
 
-    onError: (error, _variables, context) => {
+    onError: (_error, _variables, context) => {
       context?.previous.forEach(([key, data]) => {
         queryClient.setQueryData(key, data);
       });
@@ -63,10 +62,6 @@ export function useUpdateApplicationStatus() {
           applicationKeys.detail(context.id),
           context.previousDetail,
         );
-      }
-
-      if (isUnauthorized(error)) {
-        logout();
       }
     },
 

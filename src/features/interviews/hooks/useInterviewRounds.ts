@@ -3,32 +3,26 @@ import {
   createInterviewRound,
   getInterviewRounds,
 } from "@/features/interviews/api/interviews";
-import { isUnauthorized } from "@/api/errors";
 import type { CreateInterviewRoundInput, InterviewRound } from "@/features/interviews/types/interview";
 import { applicationKeys } from "@/features/applications/utils/queryKeys";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { interviewKeys } from "../utils/queryKeys";
 
 export function useInterviewRounds(applicationId: string) {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
 
   return useQuery({
     queryKey: interviewKeys.list(applicationId),
     queryFn: async () => {
-      try {
-        const result = await getInterviewRounds(token!, applicationId);
-        return Array.isArray(result) ? result : [];
-      } catch (error) {
-        if (isUnauthorized(error)) logout();
-        throw error;
-      }
+      const result = await getInterviewRounds(token!, applicationId);
+      return Array.isArray(result) ? result : [];
     },
     enabled: Boolean(token && applicationId),
   });
 }
 
 export function useCreateInterviewRound(applicationId: string) {
-  const { token, logout } = useAuth();
+  const { token } = useAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -42,9 +36,6 @@ export function useCreateInterviewRound(applicationId: string) {
       queryClient.invalidateQueries({
         queryKey: applicationKeys.detail(applicationId),
       });
-    },
-    onError: (error) => {
-      if (isUnauthorized(error)) logout();
     },
   });
 }
