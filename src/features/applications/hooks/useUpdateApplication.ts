@@ -7,7 +7,7 @@ import { getFieldErrors, isUnauthorized } from "@/api/errors";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { applicationKeys } from "../utils/queryKeys";
 import { getStepForField } from "../utils/formSteps";
-import { toCreateInput } from "../utils/toCreateInput";
+import { toUpdateInput } from "../utils/toUpdateInput";
 import { useApplicationForm } from "./useApplicationForm";
 import { validateForm } from "../utils/formValidation";
 
@@ -29,7 +29,7 @@ export function useUpdateApplication() {
         };
       }
 
-      await updateApplication(token!, applicationId, toCreateInput(values));
+      await updateApplication(token!, applicationId, toUpdateInput(values));
       updatedIdRef.current = applicationId;
 
       if (values.resumeFile) {
