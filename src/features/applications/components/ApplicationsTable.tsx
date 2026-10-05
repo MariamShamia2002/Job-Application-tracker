@@ -158,7 +158,11 @@ export function ApplicationsTable({
 
 export function ApplicationsTableSkeleton() {
   return (
-    <div className="overflow-hidden rounded-xl border border-border bg-white">
+    <div
+      role="status"
+      aria-label="Loading applications"
+      className="overflow-hidden rounded-xl border border-border bg-white"
+    >
       <div className="space-y-0">
         <div className="h-11 border-b border-border bg-white" />
         {Array.from({ length: 8 }).map((_, index) => (
